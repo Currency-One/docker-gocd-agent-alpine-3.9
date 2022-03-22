@@ -29,7 +29,7 @@ RUN \
 RUN unzip /tmp/go-agent-20.8.0-12213.zip -d /
 RUN mv /go-agent-20.8.0 /go-agent && chown -R ${UID}:0 /go-agent && chmod -R g=u /go-agent
 
-FROM alpine:3.9
+FROM alpine:3.15
 
 LABEL gocd.version="20.8.0" \
   description="GoCD agent based on alpine version 3.9" \
@@ -55,7 +55,7 @@ RUN \
 # regardless of whatever dependencies get added
 # add user to root group for gocd to work on openshift
   adduser -D -u ${UID} -s /bin/bash -G root go && \
-    apk add --no-cache cyrus-sasl cyrus-sasl-plain && \
+    apk add --no-cache cyrus-sasl && \
   apk --no-cache upgrade && \
   apk add --no-cache nss git mercurial subversion openssh-client bash curl procps && \
   # install glibc and zlib for adoptopenjdk && \
